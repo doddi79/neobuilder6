@@ -7,7 +7,7 @@ __all__ = [
 ]
 import datetime
 import typing
-from protoplasm import plasm
+from protoplasm6 import plasm
 
 from sandbox.test import service_with_oneof_dc as dc
 from sandbox.test.service_with_oneof_grpc_receiver import SimpleOneOfServiceGrpcServicer

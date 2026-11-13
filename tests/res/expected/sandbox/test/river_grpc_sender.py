@@ -8,7 +8,7 @@ __all__ = [
 ]
 import datetime
 import typing
-from protoplasm import plasm
+from protoplasm6 import plasm
 from sandbox.test import river_dc as dc
 from sandbox.test import river_pb2_grpc as pb2_grpc
 from sandbox.test.river_api import *

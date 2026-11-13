@@ -7,7 +7,7 @@ __all__ = [
 ]
 import datetime
 import typing
-from protoplasm import plasm
+from protoplasm6 import plasm
 
 from sandbox.test import alpha_dc as sandbox__test__alpha_dc
 from sandbox.test import beta_dc as sandbox__test__beta_dc

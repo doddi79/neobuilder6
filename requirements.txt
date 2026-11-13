@@ -1,4 +1,5 @@
-protoplasm >=5.3, <6
-ccptools >=1.1, <2
+protoplasm6 >=6.0, <7
+batutils >=2.2, <3
+grpcio-tools >=1.80, <2
 Jinja2 >=3.1, <4
-semver >= 3.0.2, <4
+semver >=3.0.2, <4

@@ -8,7 +8,7 @@ __all__ = [
 ]
 import datetime
 import typing
-from protoplasm import plasm
+from protoplasm6 import plasm
 from sandbox.test import alpha_dc as sandbox__test__alpha_dc
 from sandbox.test import delta_dc as sandbox__test__delta_dc
 from sandbox.test import nested_dc as sandbox__test__nested_dc

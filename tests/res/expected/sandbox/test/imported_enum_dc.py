@@ -10,8 +10,8 @@ import dataclasses
 import datetime
 import enum
 import typing
-from protoplasm.casting import dictators
-from protoplasm import plasm
+from protoplasm6.casting import dictators
+from protoplasm6 import plasm
 from sandbox.test import enums_dc as sandbox__test__enums_dc
 
 from sandbox.test import imported_enum_pb2 as pb2

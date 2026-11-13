@@ -1,4 +1,4 @@
-from neobuilder.neobuilder import NeoBuilder
+from neobuilder6.neobuilder import NeoBuilder
 
 
 if __name__ == '__main__':
@@ -10,7 +10,7 @@ if __name__ == '__main__':
     #)
     n = NeoBuilder(
         package='sandbox',
-        protopath=r'D:\Code\github\ccpgames\neobuilder\tests\res2\proto',
+        protopath='./tests/res2/proto',
         build_root='./_sandbox/build/',
         verbose=True,
     )

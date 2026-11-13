@@ -1,6 +1,6 @@
 import unittest
 
-from neobuilder.neobuilder import NeoBuilder
+from neobuilder6.neobuilder import NeoBuilder
 import os
 import shutil
 
@@ -17,8 +17,8 @@ EXPECTED_ROOT = os.path.join(HERE, 'res', 'expected')
 
 EXPECTED_NUMBER_OF_FILES_CHECKED = 39
 
-from neobuilder import __version__ as neobuilder_version
-from protoplasm import __version__ as protoplasm_version
+from neobuilder6 import __version__ as neobuilder_version
+from protoplasm6 import __version__ as protoplasm_version
 
 
 class NeobuilderTest(unittest.TestCase):
@@ -46,6 +46,11 @@ class NeobuilderTest(unittest.TestCase):
         for (dirpath, dirnames, filenames) in os.walk(EXPECTED_ROOT):
             for f in filenames:
                 assert_exists(os.path.join(dirpath, f))
+
+    def test_pyi_files_were_built_by_default(self):
+        for name in ('alpha', 'service', 'river'):
+            pyi = os.path.join(BUILD_ROOT, 'sandbox', 'test', f'{name}_pb2.pyi')
+            self.assertTrue(os.path.exists(pyi), msg=f'{pyi} not found')
 
     def test_code_in_files(self):
         file_count = 0

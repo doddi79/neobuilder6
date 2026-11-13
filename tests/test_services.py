@@ -7,8 +7,8 @@ import time
 
 import grpc
 
-from neobuilder.neobuilder import NeoBuilder
-from protoplasm import errors
+from neobuilder6.neobuilder import NeoBuilder
+from protoplasm6 import errors
 
 import logging
 log = logging.getLogger(__name__)

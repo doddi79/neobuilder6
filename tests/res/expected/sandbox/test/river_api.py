@@ -7,7 +7,7 @@ __all__ = [
 ]
 import datetime
 import typing
-from protoplasm import plasm
+from protoplasm6 import plasm
 
 from sandbox.test import river_dc as dc
 from sandbox.test.river_grpc_receiver import StreamingServiceGrpcServicer
