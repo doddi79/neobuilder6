@@ -35,9 +35,15 @@ class NeoBuilder(object):
                  patch: bool = False,
                  verbose: bool = False,
                  include_pyi: bool = True,
-                 extra_includes: Optional[List[str]] = None):
+                 extra_includes: Optional[List[str]] = None,
+                 alias_imports: bool = True):
 
         self.package = package
+        self.alias_imports = alias_imports
+
+        # Proto package name -> [(dataclass module name, [exported names])]
+        # for the "proto package alias imports" in the package __init__ files
+        self.package_aliases: Dict[str, List[Tuple[str, List[str]]]] = {}
 
         self.protopath = protopath.replace('\\', '/')
         self.build_root = build_root.replace('\\', '/')
@@ -344,16 +350,40 @@ class NeoBuilder(object):
                 p = modules.ProtoModule(m)
                 log.debug(f' - Writing ProtoModule: {p.get_module_full_name()}')
                 p.write_rendered_file()
+                self._register_package_alias(p)
             except Exception as ex:
                 log.exception(f'ERROR! Bad stuff happened! %r' % ex)
                 raise
+
+    def _register_package_alias(self, proto_module: 'modules.ProtoModule'):
+        proto_package = proto_module.descriptor.package
+        if not proto_package:
+            return
+        pb2_name = proto_module.get_module_full_name()
+        dc_name = f'{pb2_name[:-4]}_dc' if pb2_name.endswith('_pb2') else f'{pb2_name}_dc'
+        self.package_aliases.setdefault(proto_package, []).append((dc_name, proto_module.get_all_list()))
+
+    def _get_python_package_name(self, dirpath: str) -> str:
+        rel_path = pathlib.Path(dirpath).absolute().relative_to(pathlib.Path(self.build_root).absolute())
+        return '.'.join(rel_path.parts)
+
+    def _get_alias_init(self, python_package: str) -> str:
+        if not self.alias_imports:
+            return ''
+        dc_modules = self.package_aliases.get(python_package)
+        if not dc_modules:
+            return ''
+        return render.package_aliases(python_package, dc_modules)
 
     def add_inits(self):
         log.debug('Adding __init__ files to generated modules...')
         for dirpath, dirnames, filenames in os.walk(self.build_path):
             if not dirpath.endswith('__pycache__'):
                 if '__init__.py' not in filenames:
-                    render.to_file(f'{dirpath}/__init__.py', render.init())
+                    alias_init = self._get_alias_init(self._get_python_package_name(dirpath))
+                    if alias_init:
+                        log.debug(f'Adding proto package alias imports to {dirpath}/__init__.py')
+                    render.to_file(f'{dirpath}/__init__.py', alias_init or render.init())
 
     def add_version(self):
         log.debug('Adding version to generated package root...')
@@ -361,7 +391,8 @@ class NeoBuilder(object):
         if not os.path.exists(package_init):
             render.to_file(package_init, render.root_init(
                 package_name=self.package,
-                version_str=self.next_version
+                version_str=self.next_version,
+                alias_init=self._get_alias_init(self.package),
             ))
         else:
             raise ValueError('Package __init__ file (%s) already exists? :(', package_init)

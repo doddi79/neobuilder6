@@ -22,8 +22,8 @@ log = logging.getLogger(__name__)
 
 
 class SimpleService(plasm.BaseGrpcClientImplementation, SimpleServiceInterface):
-    def __init__(self, grpc_host: str = 'localhost:50051', credentials: typing.Optional[typing.Union[bool, 'ChannelCredentials']] = None, options: typing.Optional[typing.Dict] = None, *args, **kwargs):
-        super().__init__(pb2_grpc.SimpleServiceStub, grpc_host, credentials, options, *args, **kwargs)
+    def __init__(self, grpc_host: str = 'localhost:50051', credentials: typing.Optional[typing.Union[bool, 'ChannelCredentials']] = None, options: typing.Optional[typing.Dict] = None, metadata: plasm.MetadataSpec = None, *args, **kwargs):
+        super().__init__(pb2_grpc.SimpleServiceStub, grpc_host, credentials, options, metadata, *args, **kwargs)
 
     def hello(self, greeting: str = None) -> str:
         return self._forward_to_grpc(dc.HelloRequest, self.stub.Hello, greeting)
@@ -35,8 +35,8 @@ class SimpleService(plasm.BaseGrpcClientImplementation, SimpleServiceInterface):
         return self._forward_to_grpc(dc.EmptyHelloRequest, self.stub.EmptyHello)
 
 class Math(plasm.BaseGrpcClientImplementation, MathInterface):
-    def __init__(self, grpc_host: str = 'localhost:50051', credentials: typing.Optional[typing.Union[bool, 'ChannelCredentials']] = None, options: typing.Optional[typing.Dict] = None, *args, **kwargs):
-        super().__init__(pb2_grpc.MathStub, grpc_host, credentials, options, *args, **kwargs)
+    def __init__(self, grpc_host: str = 'localhost:50051', credentials: typing.Optional[typing.Union[bool, 'ChannelCredentials']] = None, options: typing.Optional[typing.Dict] = None, metadata: plasm.MetadataSpec = None, *args, **kwargs):
+        super().__init__(pb2_grpc.MathStub, grpc_host, credentials, options, metadata, *args, **kwargs)
 
     def add(self, x: int = None, y: int = None) -> int:
         return self._forward_to_grpc(dc.AddRequest, self.stub.Add, x, y)

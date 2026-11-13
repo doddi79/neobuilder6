@@ -48,8 +48,8 @@ class ServiceBuilder(base.AbstractServiceBuilder):
         i = self.base_indent
         return (
             f'{i}class {self.service.service_descriptor.name}(plasm.BaseGrpcClientImplementation, {self.service.service_descriptor.name}Interface):\n'
-            f'{i}{__}def __init__(self, grpc_host: str = \'localhost:50051\', credentials: typing.Optional[typing.Union[bool, \'ChannelCredentials\']] = None, options: typing.Optional[typing.Dict] = None, *args, **kwargs):\n'
-            f'{i}{__}{__}super().__init__(pb2_grpc.{self.service.service_descriptor.name}Stub, grpc_host, credentials, options, *args, **kwargs)\n'
+            f'{i}{__}def __init__(self, grpc_host: str = \'localhost:50051\', credentials: typing.Optional[typing.Union[bool, \'ChannelCredentials\']] = None, options: typing.Optional[typing.Dict] = None, metadata: plasm.MetadataSpec = None, *args, **kwargs):\n'
+            f'{i}{__}{__}super().__init__(pb2_grpc.{self.service.service_descriptor.name}Stub, grpc_host, credentials, options, metadata, *args, **kwargs)\n'
             f'\n'
             f'{self.render_methods()}'
         )

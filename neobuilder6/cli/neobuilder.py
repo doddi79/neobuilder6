@@ -22,6 +22,10 @@ def main():
                         help='Spits out DEBUG level logs')
     parser.add_argument('-i', '--pyi', action=argparse.BooleanOptionalAction, default=True,
                         help='Builds *.pyi type stubs for the pb2 files as well (default=True, use --no-pyi to skip)')
+    parser.add_argument('--alias-imports', action=argparse.BooleanOptionalAction, default=True,
+                        help='Alias imports everything in each proto package in the __init__.py of the '
+                             'corresponding Python package, e.g. so "from myshop.orders import *" works '
+                             '(default=True, use --no-alias-imports to skip)')
     parser.add_argument('-I', '--include', action='append', help="Optional additional proto paths to include (can be used multiple times)", default=[])
 
     args = parser.parse_args()
@@ -35,6 +39,7 @@ def main():
         verbose=args.verbose,
         include_pyi=args.pyi,
         extra_includes=args.include,
+        alias_imports=args.alias_imports,
     )
     n.build()
 

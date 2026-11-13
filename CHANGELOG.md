@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [6.1.0] - 2026-11-14
+
+### Added
+
+- Proto package alias imports
+  ([neobuilder#2](https://github.com/ccpgames/neobuilder/issues/2)): The
+  `__init__.py` of every generated directory that matches a proto package now
+  star imports all the dataclass modules (`*_dc.py`) of that package (with a
+  static `__all__`) so e.g. `from myshop.orders import *` gets you every
+  message and enum in the `myshop.orders` proto package, no matter which
+  `.proto` file they're in. On by default; use `--no-alias-imports` (or
+  `NeoBuilder(alias_imports=False)`) to skip it
+- A `metadata` argument on generated gRPC clients (for Protoplasm6 6.1's call
+  metadata, e.g. authorization headers)
+- A task-oriented [Public API index](docs/api-index.md) (for humans and LLMs
+  alike)
+
+
 ## [6.0.0] - 2026-11-14
 
 Forked and renamed!!

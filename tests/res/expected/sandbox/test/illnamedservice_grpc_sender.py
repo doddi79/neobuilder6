@@ -21,8 +21,8 @@ log = logging.getLogger(__name__)
 
 
 class ServiceWithBadRequestNames(plasm.BaseGrpcClientImplementation, ServiceWithBadRequestNamesInterface):
-    def __init__(self, grpc_host: str = 'localhost:50051', credentials: typing.Optional[typing.Union[bool, 'ChannelCredentials']] = None, options: typing.Optional[typing.Dict] = None, *args, **kwargs):
-        super().__init__(pb2_grpc.ServiceWithBadRequestNamesStub, grpc_host, credentials, options, *args, **kwargs)
+    def __init__(self, grpc_host: str = 'localhost:50051', credentials: typing.Optional[typing.Union[bool, 'ChannelCredentials']] = None, options: typing.Optional[typing.Dict] = None, metadata: plasm.MetadataSpec = None, *args, **kwargs):
+        super().__init__(pb2_grpc.ServiceWithBadRequestNamesStub, grpc_host, credentials, options, metadata, *args, **kwargs)
 
     def do_something(self, foo: str = None) -> str:
         return self._forward_to_grpc(dc.MyAction, self.stub.DoSomething, foo)

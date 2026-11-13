@@ -2,6 +2,9 @@
 
 Builds Neobuf Packages from Protobuf files using Protoplasm6! :D
 
+See the **[Public API index](docs/api-index.md)** for a task-oriented reference of
+the CLI, the Python API and the generated code layout.
+
 ## Note
 
 This is a fork of the [`neobuilder`](https://github.com/ccpgames/neobuilder)
@@ -31,6 +34,12 @@ Given a directory of `*.proto` files, Neobuilder6 builds a Python package
 `VERSION` file and an `__everything__.py` module that imports every module
 (call `your_package.load_symbols()` to make sure the protobuf symbol database
 knows every message, e.g. for `Any` unpacking).
+
+The `__init__.py` of every directory that matches a proto package also
+"alias imports" everything in that proto package, so e.g.
+`from myshop.orders import *` gets you every message and enum declared with
+`package myshop.orders;`, no matter which `.proto` file they're in (use
+`--no-alias-imports` to skip this).
 
 See the [Protoplasm6 README](https://github.com/doddi79/protoplasm6) for how
 to use the generated code.
@@ -86,7 +95,8 @@ build root) is bumped (minor by default) or `0.1.0` is used for a first build.
 ### Full CLI usage
 
 ```
-usage: neobuild [-h] [-m | -p] [-b [BUILDROOT]] [-v] [-i | --pyi | --no-pyi] [-I INCLUDE]
+usage: neobuild [-h] [-m | -p] [-b [BUILDROOT]] [-v] [-i | --pyi | --no-pyi]
+                [--alias-imports | --no-alias-imports] [-I INCLUDE]
                 package [protopath]
 
 Builds neobuf packages with protoplasm6.
@@ -104,10 +114,14 @@ options:
   -v, --verbose         Spits out DEBUG level logs
   -i, --pyi, --no-pyi   Builds *.pyi type stubs for the pb2 files as well (default=True, use --no-
                         pyi to skip)
+  --alias-imports, --no-alias-imports
+                        Alias imports everything in each proto package in the __init__.py of the
+                        corresponding Python package, e.g. so "from myshop.orders import *" works
+                        (default=True, use --no-alias-imports to skip)
   -I, --include INCLUDE
                         Optional additional proto paths to include (can be used multiple times)
 
-Neobuilder6 v6.0.0 - Protoplasm6 v6.0.0
+Neobuilder6 v6.1.0 - Protoplasm6 v6.1.0
 ```
 
 ## Neobuilder6 & Protoplasm6 (the chicken and the egg)

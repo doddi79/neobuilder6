@@ -4,4 +4,9 @@ __neobuilder_version__ = '{{ neobuilder_version }}'
 
 
 def load_symbols():
-    from {{ package_name }} import __everything__
+    from {{ package_name }} import __everything__{% if alias_init %}
+
+
+
+{{ alias_init }}
+{%- endif %}
