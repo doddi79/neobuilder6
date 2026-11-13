@@ -1,28 +1,47 @@
 name: Run Unit Tests
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main  # Only run when pushing directly to main
+  pull_request:
+    branches:
+      - '**'  # Run on all pull requests
+  workflow_dispatch:  # ...or when run manually
 
 jobs:
-  unit-tests:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
 
     steps:
-    - uses: actions/checkout@v2
-
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
-
-    - name: Install Dependencies for Python ${{ matrix.python-version }}
+    - name: Install Protoplasm6
+      # From the branch with the same name in the protoplasm6 repo if there
+      # is one (for changes spanning both repos) or from main
+      env:
+        BRANCH: ${{ github.head_ref || github.ref_name }}
       run: |
         python -m pip install --upgrade pip
+        REPO=https://github.com/doddi79/protoplasm6.git
+        if git ls-remote --exit-code --heads "$REPO" "$BRANCH" > /dev/null; then
+          REF="$BRANCH"
+        else
+          REF=main
+        fi
+        echo "Installing protoplasm6 from its '$REF' branch"
+        pip install "protoplasm6 @ git+$REPO@$REF"
+    - name: Install dependencies
+      run: |
         pip install -r requirements.txt
-
-    - name: Run tests on Python ${{ matrix.python-version }}
+    - name: Run tests
       run: |
         python -m unittest discover -v -f ./tests

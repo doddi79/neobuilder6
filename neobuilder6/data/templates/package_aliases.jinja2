@@ -1,0 +1,10 @@
+# Auto-Generated file - DO NOT EDIT!
+# Proto package alias imports, i.e. everything in the `{{ proto_package }}` proto package
+__all__ = [
+{% for name in names %}
+    '{{ name }}',
+{% endfor %}
+]
+{% for module in modules %}
+from {{ module }} import *
+{% endfor %}

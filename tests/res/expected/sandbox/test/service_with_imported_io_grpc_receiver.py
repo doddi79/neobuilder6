@@ -7,7 +7,7 @@ __all__ = [
 ]
 import datetime
 import typing
-from protoplasm import plasm
+from protoplasm6 import plasm
 from google.protobuf import any_pb2
 from google.protobuf import timestamp_pb2
 from sandbox.test import alpha_dc as sandbox__test__alpha_dc

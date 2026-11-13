@@ -8,7 +8,7 @@ __all__ = [
 ]
 import datetime
 import typing
-from protoplasm import plasm
+from protoplasm6 import plasm
 from sandbox.test import alpha_dc as sandbox__test__alpha_dc
 from sandbox.test import delta_dc as sandbox__test__delta_dc
 from sandbox.test import nested_dc as sandbox__test__nested_dc
@@ -24,8 +24,8 @@ log = logging.getLogger(__name__)
 
 
 class ServiceWithImportedInputAndOutput(plasm.BaseGrpcClientImplementation, ServiceWithImportedInputAndOutputInterface):
-    def __init__(self, grpc_host: str = 'localhost:50051', credentials: typing.Optional[typing.Union[bool, 'ChannelCredentials']] = None, options: typing.Optional[typing.Dict] = None, *args, **kwargs):
-        super().__init__(pb2_grpc.ServiceWithImportedInputAndOutputStub, grpc_host, credentials, options, *args, **kwargs)
+    def __init__(self, grpc_host: str = 'localhost:50051', credentials: typing.Optional[typing.Union[bool, 'ChannelCredentials']] = None, options: typing.Optional[typing.Dict] = None, metadata: plasm.MetadataSpec = None, *args, **kwargs):
+        super().__init__(pb2_grpc.ServiceWithImportedInputAndOutputStub, grpc_host, credentials, options, metadata, *args, **kwargs)
 
     def simple(self, my_string: str = None, my_number: int = None, my_level_three_message: sandbox__test__beta_dc.BetaMessage = None) -> typing.Tuple[str, str]:
         return self._forward_to_grpc(sandbox__test__delta_dc.DeltaMessage, self.stub.Simple, my_string, my_number, my_level_three_message)

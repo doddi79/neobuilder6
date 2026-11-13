@@ -1,5 +1,10 @@
 name: Publish Python Package
 
+# Runs on any new GitHub release (pre-releases included).
+#
+# NOTE: Release protoplasm6 BEFORE neobuilder6 (when releasing both) since
+# neobuilder6 depends on protoplasm6.
+
 on:
   release:
     types: [ created ]
@@ -8,21 +13,42 @@ jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.8'
+          python-version: '3.10'
       - name: Install Dependencies
+        # Protoplasm6 from PyPI if a matching release is there, otherwise from
+        # main (e.g. for the very first release)
         run: |
           python --version
           python -m pip install --upgrade pip
-          pip install --upgrade setuptools wheel twine
+          pip install --upgrade build twine
+          pip install -r requirements.txt \
+            || (pip install "protoplasm6 @ git+https://github.com/doddi79/protoplasm6.git@main" \
+                && pip install -r requirements.txt)
+      - name: Check that the release tag matches the package version
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+        run: |
+          VERSION=$(python -c "import neobuilder6; print(neobuilder6.__version__)")
+          echo "Tag: $TAG - Package version: $VERSION"
+          if [ "${TAG#v}" != "$VERSION" ]; then
+            echo "::error::Release tag $TAG does not match neobuilder6.__version__ $VERSION"
+            exit 1
+          fi
+      - name: Run Unit Tests
+        run: |
+          python -m unittest discover -v -f ./tests
       - name: Build and Package
         run: |
-          python setup.py sdist bdist_wheel
+          pip freeze
+          python -m build
+          twine check dist/*
       - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.4.2
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          password: ${{ secrets.PYPI_UPLOAD_TOKEN }}
+          verbose: true

@@ -1,12 +1,12 @@
 import unittest
 import os
 import sys
-from neobuilder.neobuilder import NeoBuilder
+from neobuilder6.neobuilder import NeoBuilder
 import shutil
 import time
-import neobuilder.generators.symbols
-import neobuilder.generators.symbols.dataclass
-import neobuilder.generators.symbols.modules
+import neobuilder6.generators.symbols
+import neobuilder6.generators.symbols.dataclass
+import neobuilder6.generators.symbols.modules
 
 HERE = os.path.dirname(__file__)
 BUILD_ROOT = os.path.join(HERE, 'res', 'build')
@@ -36,8 +36,8 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_rainbow_simple_field(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.RainbowMessage.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['simple_field'], proto_class)
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.RainbowMessage.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['simple_field'], proto_class)
 
         self.assertTrue(proto_field.is_single())
         self.assertFalse(proto_field.is_list())
@@ -60,8 +60,8 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_rainbow_message_field(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.RainbowMessage.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['message_field'], proto_class)
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.RainbowMessage.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['message_field'], proto_class)
 
         self.assertTrue(proto_field.is_single())
         self.assertFalse(proto_field.is_list())
@@ -84,8 +84,8 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_rainbow_simple_list(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.RainbowMessage.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['simple_list'], proto_class)
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.RainbowMessage.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['simple_list'], proto_class)
 
         self.assertFalse(proto_field.is_single())
         self.assertTrue(proto_field.is_list())
@@ -108,8 +108,8 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_rainbow_message_list(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.RainbowMessage.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['message_list'], proto_class)
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.RainbowMessage.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['message_list'], proto_class)
 
         self.assertFalse(proto_field.is_single())
         self.assertTrue(proto_field.is_list())
@@ -132,8 +132,8 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_rainbow_simple_map(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.RainbowMessage.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['simple_map'], proto_class)
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.RainbowMessage.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['simple_map'], proto_class)
 
         self.assertFalse(proto_field.is_single())
         self.assertFalse(proto_field.is_list())
@@ -156,8 +156,8 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_rainbow_message_map(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.RainbowMessage.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['message_map'], proto_class)
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.RainbowMessage.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['message_map'], proto_class)
 
         self.assertFalse(proto_field.is_single())
         self.assertFalse(proto_field.is_list())
@@ -180,8 +180,8 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_timestamp(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.TimestampMessage.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['my_timestamp'], proto_class)
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.TimestampMessage.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['my_timestamp'], proto_class)
 
         self.assertTrue(proto_field.is_single())
         self.assertFalse(proto_field.is_list())
@@ -204,8 +204,8 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_timestamp_list(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.TimestampMessage.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['my_timestamp_list'], proto_class)
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.TimestampMessage.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['my_timestamp_list'], proto_class)
 
         self.assertFalse(proto_field.is_single())
         self.assertTrue(proto_field.is_list())
@@ -228,8 +228,8 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_timestamp_map(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.TimestampMessage.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['my_timestamp_map'], proto_class)
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.TimestampMessage.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['my_timestamp_map'], proto_class)
 
         self.assertFalse(proto_field.is_single())
         self.assertFalse(proto_field.is_list())
@@ -252,8 +252,8 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_bytes(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.BytesMessage.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['my_bytes'], proto_class)
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.BytesMessage.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['my_bytes'], proto_class)
 
         self.assertTrue(proto_field.is_single())
         self.assertFalse(proto_field.is_list())
@@ -275,8 +275,8 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_bytes_list(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.BytesMessage.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['my_bytes_list'], proto_class)
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.BytesMessage.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['my_bytes_list'], proto_class)
 
         self.assertFalse(proto_field.is_single())
         self.assertTrue(proto_field.is_list())
@@ -299,8 +299,8 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_bytes_map(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.BytesMessage.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['my_bytes_map'], proto_class)
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.BytesMessage.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name['my_bytes_map'], proto_class)
 
         self.assertFalse(proto_field.is_single())
         self.assertFalse(proto_field.is_list())
@@ -323,7 +323,7 @@ class ProtoFieldTest(unittest.TestCase):
 
     def test_all_types(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.AllTypes.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.AllTypes.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
         class_string = proto_class.render_py().strip()
         expected = """@dataclasses.dataclass
 class AllTypes(plasm.DataclassBase):
@@ -347,7 +347,7 @@ class AllTypes(plasm.DataclassBase):
 
     def test_all_types_list(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.AllTypesList.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.AllTypesList.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
         class_string = proto_class.render_py().strip()
         expected = """@dataclasses.dataclass
 class AllTypesList(plasm.DataclassBase):
@@ -371,7 +371,7 @@ class AllTypesList(plasm.DataclassBase):
 
     def test_all_types_map(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.AllTypesMap.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.AllTypesMap.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
         class_string = proto_class.render_py().strip()
         expected = """@dataclasses.dataclass
 class AllTypesMap(plasm.DataclassBase):
@@ -392,7 +392,7 @@ class AllTypesMap(plasm.DataclassBase):
 
     def test_all_types_nested_map(self):
         from sandbox.test import rainbow_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(rainbow_pb2.AllTypesNestedMap.DESCRIPTOR, neobuilder.generators.symbols.modules.ProtoModule(rainbow_pb2))
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(rainbow_pb2.AllTypesNestedMap.DESCRIPTOR, neobuilder6.generators.symbols.modules.ProtoModule(rainbow_pb2))
         class_string = proto_class.render_py().strip()
         expected = """@dataclasses.dataclass
 class AllTypesNestedMap(plasm.DataclassBase):
@@ -413,15 +413,15 @@ class AllTypesNestedMap(plasm.DataclassBase):
 
     def test_duration(self):
         from sandbox.test import timeduration_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(timeduration_pb2.DurationMessage.DESCRIPTOR,
-                                                                         neobuilder.generators.symbols.modules.ProtoModule(timeduration_pb2))
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(timeduration_pb2.DurationMessage.DESCRIPTOR,
+                                                                         neobuilder6.generators.symbols.modules.ProtoModule(timeduration_pb2))
         exp_field = 'my_duration'
         exp_type_hint = 'datetime.timedelta'
         exp_dictator = 'DurationDictator'
         exp_meta = f"'dictator': dictators.{exp_dictator}"
         exp_default = 'default=None'
 
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name[exp_field], proto_class)
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name[exp_field], proto_class)
 
         self.assertTrue(proto_field.is_single())
         self.assertFalse(proto_field.is_list())
@@ -445,15 +445,15 @@ class AllTypesNestedMap(plasm.DataclassBase):
 
     def test_duration_list(self):
         from sandbox.test import timeduration_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(timeduration_pb2.DurationMessage.DESCRIPTOR,
-                                                                         neobuilder.generators.symbols.modules.ProtoModule(timeduration_pb2))
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(timeduration_pb2.DurationMessage.DESCRIPTOR,
+                                                                         neobuilder6.generators.symbols.modules.ProtoModule(timeduration_pb2))
         exp_field = 'my_duration_list'
         exp_type_hint = 'typing.List[datetime.timedelta]'
         exp_dictator = 'DurationDictator'
         exp_meta = f"'dictator': dictators.{exp_dictator}, 'is_list': True"
         exp_default = 'default_factory=list'
 
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name[exp_field], proto_class)
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name[exp_field], proto_class)
 
         self.assertFalse(proto_field.is_single())
         self.assertTrue(proto_field.is_list())
@@ -478,15 +478,15 @@ class AllTypesNestedMap(plasm.DataclassBase):
 
     def test_duration_map(self):
         from sandbox.test import timeduration_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(timeduration_pb2.DurationMessage.DESCRIPTOR,
-                                                                         neobuilder.generators.symbols.modules.ProtoModule(timeduration_pb2))
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(timeduration_pb2.DurationMessage.DESCRIPTOR,
+                                                                         neobuilder6.generators.symbols.modules.ProtoModule(timeduration_pb2))
         exp_field = 'my_duration_map'
         exp_type_hint = 'typing.Dict[str, datetime.timedelta]'
         exp_dictator = 'DurationDictator'
         exp_meta = f"'dictator': dictators.{exp_dictator}, 'is_map': True"
         exp_default = 'default_factory=dict'
 
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name[exp_field], proto_class)
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name[exp_field], proto_class)
 
         self.assertFalse(proto_field.is_single())
         self.assertFalse(proto_field.is_list())
@@ -529,15 +529,15 @@ class ProtoAnyFieldTest(unittest.TestCase):
 
     def test_any(self):
         from sandbox.test import anytest_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(anytest_pb2.AnyMessage.DESCRIPTOR,
-                                                                         neobuilder.generators.symbols.modules.ProtoModule(anytest_pb2))
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(anytest_pb2.AnyMessage.DESCRIPTOR,
+                                                                         neobuilder6.generators.symbols.modules.ProtoModule(anytest_pb2))
         exp_field = 'my_any'
         exp_type_hint = 'plasm.DataclassBase'
         exp_dictator = 'AnyDictator'
         exp_meta = f"'dictator': dictators.{exp_dictator}"
         exp_default = 'default=None'
 
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name[exp_field], proto_class)
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name[exp_field], proto_class)
 
         self.assertTrue(proto_field.is_single())
         self.assertFalse(proto_field.is_list())
@@ -562,15 +562,15 @@ class ProtoAnyFieldTest(unittest.TestCase):
 
     def test_any_list(self):
         from sandbox.test import anytest_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(anytest_pb2.AnyMessage.DESCRIPTOR,
-                                                                         neobuilder.generators.symbols.modules.ProtoModule(anytest_pb2))
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(anytest_pb2.AnyMessage.DESCRIPTOR,
+                                                                         neobuilder6.generators.symbols.modules.ProtoModule(anytest_pb2))
         exp_field = 'my_any_list'
         exp_type_hint = 'typing.List[plasm.DataclassBase]'
         exp_dictator = 'AnyDictator'
         exp_meta = f"'dictator': dictators.{exp_dictator}, 'is_list': True"
         exp_default = 'default_factory=list'
 
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name[exp_field], proto_class)
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name[exp_field], proto_class)
 
         self.assertFalse(proto_field.is_single())
         self.assertTrue(proto_field.is_list())
@@ -596,15 +596,15 @@ class ProtoAnyFieldTest(unittest.TestCase):
 
     def test_any_map(self):
         from sandbox.test import anytest_pb2
-        proto_class = neobuilder.generators.symbols.dataclass.ProtoClass(anytest_pb2.AnyMessage.DESCRIPTOR,
-                                                                         neobuilder.generators.symbols.modules.ProtoModule(anytest_pb2))
+        proto_class = neobuilder6.generators.symbols.dataclass.ProtoClass(anytest_pb2.AnyMessage.DESCRIPTOR,
+                                                                         neobuilder6.generators.symbols.modules.ProtoModule(anytest_pb2))
         exp_field = 'my_any_map'
         exp_type_hint = 'typing.Dict[str, plasm.DataclassBase]'
         exp_dictator = 'AnyDictator'
         exp_meta = f"'dictator': dictators.{exp_dictator}, 'is_map': True"
         exp_default = 'default_factory=dict'
 
-        proto_field = neobuilder.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name[exp_field], proto_class)
+        proto_field = neobuilder6.generators.symbols.dataclass.ProtoField(proto_class.descriptor.fields_by_name[exp_field], proto_class)
 
         self.assertFalse(proto_field.is_single())
         self.assertFalse(proto_field.is_list())
@@ -648,7 +648,7 @@ class ProtoEnumFieldTest(unittest.TestCase):
 
     def test_external_enum(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_enum = proto_module.enum_map['ExternalEnum']
         self.assertEqual('ExternalEnum', proto_enum.get_name())
         self.assertEqual('ExternalEnum', proto_enum.get_class_import_name())
@@ -665,7 +665,7 @@ ZERO_AND_DEFAULT = ExternalEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_external_enum_alias(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_enum = proto_module.enum_map['ExternalAliasEnum']
         self.assertEqual('ExternalAliasEnum', proto_enum.get_name())
         self.assertEqual('ExternalAliasEnum', proto_enum.get_class_import_name())
@@ -690,7 +690,7 @@ DEFAULT = ExternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_external_enum_field(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithExternalEnum']
         proto_field = proto_class.field_map['my_enum']
 
@@ -715,7 +715,7 @@ DEFAULT = ExternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_external_enum_alias_field(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithExternalEnum']
         proto_field = proto_class.field_map['my_alias_enum']
 
@@ -740,7 +740,7 @@ DEFAULT = ExternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_external_enum_list_field(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithExternalEnum']
         exp_field = 'my_enum_list'
         exp_dictator = 'EnumDictator'
@@ -771,7 +771,7 @@ DEFAULT = ExternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_external_enum_alias_list_field(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithExternalEnum']
         exp_field = 'my_alias_enum_list'
         exp_dictator = 'EnumDictator'
@@ -802,7 +802,7 @@ DEFAULT = ExternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_external_enum_map_field(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithExternalEnum']
         exp_field = 'my_enum_map'
         exp_dictator = 'EnumDictator'
@@ -833,7 +833,7 @@ DEFAULT = ExternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_external_enum_alias_map_field(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithExternalEnum']
         exp_field = 'my_alias_enum_map'
         exp_dictator = 'EnumDictator'
@@ -864,7 +864,7 @@ DEFAULT = ExternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_internal_enum(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithInternalEnum']
         proto_enum = proto_class.enum_map['InternalEnum']
         self.assertEqual('InternalEnum', proto_enum.get_name())
@@ -893,7 +893,7 @@ ZERO_AND_DEFAULT = InternalEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_internal_enum_alias(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithInternalEnum']
         proto_enum = proto_class.enum_map['InternalAliasEnum']
         self.assertEqual('InternalAliasEnum', proto_enum.get_name())
@@ -938,7 +938,7 @@ DEFAULT = InternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_internal_enum_field(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithInternalEnum']
 
         exp_field = 'my_internal_enum'
@@ -970,7 +970,7 @@ DEFAULT = InternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_internal_enum_alias_field(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithInternalEnum']
 
         exp_field = 'my_internal_alias_enum'
@@ -1002,7 +1002,7 @@ DEFAULT = InternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_internal_enum_list(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithInternalEnum']
 
         exp_field = 'my_internal_enum_list'
@@ -1034,7 +1034,7 @@ DEFAULT = InternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_internal_enum_alias_list(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithInternalEnum']
 
         exp_field = 'my_internal_alias_enum_list'
@@ -1066,7 +1066,7 @@ DEFAULT = InternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_internal_enum_map(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithInternalEnum']
 
         exp_field = 'my_internal_enum_map'
@@ -1098,7 +1098,7 @@ DEFAULT = InternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_internal_enum_alias_map(self):
         from sandbox.test import enums_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(enums_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(enums_pb2)
         proto_class = proto_module.message_map['WithInternalEnum']
 
         exp_field = 'my_internal_alias_enum_map'
@@ -1130,7 +1130,7 @@ DEFAULT = InternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
 
     def test_foreign_import_type(self):
         from sandbox.test import beta_pb2
-        proto_module = neobuilder.generators.symbols.modules.ProtoModule(beta_pb2)
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(beta_pb2)
         proto_class = proto_module.message_map['BetaMessage']
 
         exp_field = 'my_foreign_message'
