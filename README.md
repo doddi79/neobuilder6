@@ -162,6 +162,8 @@ Protoplasm6 version without having that latest version actually installed.
 2. Then release Neobuilder6 (which can then pull the new Protoplasm6 from
    PyPI)
 
+See [CI/CD](#cicd) for how GitHub Actions handle this.
+
 ## Development
 
 With both repos checked out side by side:
@@ -173,3 +175,20 @@ pip install -e ../protoplasm6
 pip install -e .
 python -m unittest discover -v -f ./tests
 ```
+
+### CI/CD
+
+GitHub Actions run the unit tests (on Python 3.10 to 3.14) for pushes to
+`main` and for all pull requests, and publish to PyPI (after running the
+tests again and checking that the release tag, e.g. `v6.1.0` or `6.1.0`,
+matches `__version__`) whenever a GitHub release (or pre-release) is created.
+Publishing needs a `PYPI_UPLOAD_TOKEN` repository secret.
+
+Since the tests of each package need the other one, CI installs
+Protoplasm6 from the branch with the **same name** in its repo if there is
+one (so changes spanning both repos can be tested together, e.g. with a pull
+request from the same branch name in both) or from `main` otherwise. When
+publishing, Protoplasm6 comes from PyPI if a matching release is there
+(otherwise from `main`).
+
+When releasing both packages, release Protoplasm6 first, then Neobuilder6.

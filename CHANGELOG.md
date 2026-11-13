@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- GitHub workflows (like the original ones, minus the Docker image stuff):
+  unit tests on Python 3.10-3.14 for pushes to `main` and all pull requests,
+  and publishing to PyPI when a GitHub release is created (with a check that
+  the release tag matches the package version). The tests install
+  `protoplasm6` from the branch with the same name in its repo (or `main`)
 - Proto package alias imports
   ([neobuilder#2](https://github.com/ccpgames/neobuilder/issues/2)): The
   `__init__.py` of every generated directory that matches a proto package now
