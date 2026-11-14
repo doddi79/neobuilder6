@@ -121,7 +121,7 @@ options:
   -I, --include INCLUDE
                         Optional additional proto paths to include (can be used multiple times)
 
-Neobuilder6 v6.1.0 - Protoplasm6 v6.1.0
+Neobuilder6 v6.2.0 - Protoplasm6 v6.2.0
 ```
 
 ## Neobuilder6 & Protoplasm6 (the chicken and the egg)

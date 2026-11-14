@@ -31,6 +31,8 @@ import sandbox.test.interfaceonly_dc
 import sandbox.test.interfaceonly_pb2
 import sandbox.test.nested_dc
 import sandbox.test.nested_pb2
+import sandbox.test.optionals_dc
+import sandbox.test.optionals_pb2
 import sandbox.test.rainbow_dc
 import sandbox.test.rainbow_pb2
 import sandbox.test.river_api

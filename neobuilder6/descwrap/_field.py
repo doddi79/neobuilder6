@@ -158,6 +158,19 @@ class FieldDescriptorWrapper:
             self.kind |= FieldKind.SPECIAL_KEYWORD
 
     @property
+    def is_proto3_optional(self) -> bool:
+        """A proto3 `optional` scalar or enum field: it has presence (via a
+        synthetic oneof of its own), so "unset" and its default value differ.
+        """
+        if not self.kind & FieldKind.KIND_SINGLE:
+            return False
+        if self.kind & (FieldKind.DATA_MESSAGE | FieldKind.SPECIAL_TIMESTAMP | FieldKind.SPECIAL_DURATION
+                        | FieldKind.SPECIAL_ANY | FieldKind.FIELD_STRUCT_VALUES | FieldKind.SPECIAL_EMPTY):
+            return False  # Messages already default to None
+        oneof = self.real_descriptor.containing_oneof
+        return oneof is not None and len(oneof.fields) == 1 and oneof.name == f'_{self.name}'
+
+    @property
     def camelcase_name(self) -> str:
         return self.real_descriptor.camelcase_name
 

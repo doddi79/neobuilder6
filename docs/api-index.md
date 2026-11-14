@@ -2,7 +2,7 @@
 
 Task-oriented reference for using `neobuilder6` (distribution `neobuilder6`,
 import `neobuilder6`, CLI `neobuild` / `neobuild6`). Covers the working tree
-for version **6.1.0** (see [`neobuilder6/__init__.py`](../neobuilder6/__init__.py)).
+for version **6.2.0** (see [`neobuilder6/__init__.py`](../neobuilder6/__init__.py)).
 
 Neobuilder6 is the build-time half of a pair: it compiles `.proto` files and
 generates Python code that runs on [`protoplasm6`](https://github.com/doddi79/protoplasm6).
@@ -98,7 +98,7 @@ package names, decide where files go):
 | File                        | When                      | Contents |
 |-----------------------------|---------------------------|----------|
 | `<name>_pb2.py` (+ `.pyi`)  | always                    | Plain `protoc` output |
-| `<name>_dc.py`              | always                    | One `plasm.DataclassBase` dataclass per message and `enum.IntEnum` per enum (nested ones as nested classes); see the protoplasm6 index for field conventions |
+| `<name>_dc.py`              | always                    | One `plasm.DataclassBase` dataclass per message and `enum.IntEnum` per enum (nested ones as nested classes); proto3 `optional` scalars/enums are `typing.Optional[...] = None` (needs protoplasm6 6.2+); see the protoplasm6 index for field conventions |
 | `<name>_pb2_grpc.py`        | file has a `service` *    | Plain `grpcio-tools` output |
 | `<name>_api.py`             | file has a `service`      | `<Service>Interface` with one `snake_case` method per RPC (request fields as keyword arguments, response fields as the return value) and `__servicer_cls__` |
 | `<name>_grpc_receiver.py`   | file has a `service` *    | `<Service>GrpcServicer` (wraps your interface implementation for a gRPC server) |
