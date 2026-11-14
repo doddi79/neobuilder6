@@ -15,7 +15,7 @@ PROTO_ROOT = os.path.join(HERE, 'res', 'proto')
 BUILD_ROOT = os.path.join(HERE, 'res', 'build')
 EXPECTED_ROOT = os.path.join(HERE, 'res', 'expected')
 
-EXPECTED_NUMBER_OF_FILES_CHECKED = 39
+EXPECTED_NUMBER_OF_FILES_CHECKED = 40
 
 from neobuilder6 import __version__ as neobuilder_version
 from protoplasm6 import __version__ as protoplasm_version

@@ -36,7 +36,7 @@ classifiers = [
 ]
 
 dependencies = [
-    "protoplasm6 >=6.0, <7",
+    "protoplasm6 >=6.2, <7",
     "batutils >=2.2, <3",
     "grpcio-tools >=1.80, <2",
     "Jinja2 >=3.1, <4",

@@ -21,6 +21,7 @@ __all__ = [
     'OnHelloRequest',
     'OnHelloResponse',
     'OuterMessage',
+    'OptionalsMessage',
     'SubMessage',
     'RainbowMessage',
     'TimestampMessage',
@@ -74,6 +75,7 @@ from sandbox.test.illnamedservice_dc import *
 from sandbox.test.imported_enum_dc import *
 from sandbox.test.interfaceonly_dc import *
 from sandbox.test.nested_dc import *
+from sandbox.test.optionals_dc import *
 from sandbox.test.rainbow_dc import *
 from sandbox.test.river_dc import *
 from sandbox.test.service_dc import *

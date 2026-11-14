@@ -240,6 +240,8 @@ class ProtoField(object):
             return f"default_factory=list, metadata={{{self.get_metadata()}}}"
         elif self.is_null_value():
             return f"default=None, metadata={{{self.get_metadata()}}}"
+        elif self.is_optional():  # proto3 `optional`: None means unset, any other value (0 too) is set
+            return f"default=None, metadata={{{self.get_metadata()}}}"
         elif self.is_enum():
             # This breaks in the case of an internal class using internal enum
             # (e.g. myshop.store.store_pb2.Settings)...
@@ -307,6 +309,8 @@ class ProtoField(object):
             return value_hint
         elif self.is_empty():
             return 'None'
+        elif self.is_optional():
+            return f'typing.Optional[{self.get_py_type_name(used_in_file)}]'
         return self.get_py_type_name(used_in_file)
 
     def get_message_container_type(self) -> str:
@@ -328,6 +332,9 @@ class ProtoField(object):
             buf.append("'is_obj': True")
         elif self.is_enum():
             buf.append("'is_enum': True")
+
+        if self.is_optional():
+            buf.append("'is_optional': True")
 
         if self.is_keyword():
             buf.append(f"'pb_name': '{self.field_descriptor.name}'")
@@ -412,6 +419,9 @@ class ProtoField(object):
 
     def is_keyword(self):
         return bool(self.field_descriptor.kind & FieldKind.SPECIAL_KEYWORD)
+
+    def is_optional(self):
+        return self.field_descriptor.is_proto3_optional
 
 
 class ProtoEnumValue(object):

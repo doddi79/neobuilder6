@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 
+## [6.2.0] - 2026-11-14
+
+### Added
+
+- Proto3 `optional` support: `optional` scalar and enum fields are now
+  generated as `typing.Optional[...]` with `default=None` and
+  `'is_optional': True` metadata (they used to get plain scalar defaults,
+  losing the difference between unset and the default value). Real `oneof`
+  members are unchanged. Needs Protoplasm6 6.2+ at runtime
+
+### Changed
+
+- Requires `protoplasm6 >=6.2`
+
 ## [6.1.0] - 2026-11-14
 
 ### Added

@@ -1161,3 +1161,32 @@ DEFAULT = InternalAliasEnum(0)""", proto_enum.render_py_consts().strip())
         self.assertEqual(f"{exp_field}: {exp_type_hint} = dataclasses.field({exp_default}, metadata={{{exp_meta}}})", proto_field.render_py())
 
         self.assertEqual('from sandbox.test import alpha_dc as sandbox__test__alpha_dc\n', proto_module.render_imports())
+
+    def test_proto3_optional_fields(self):
+        from sandbox.test import optionals_pb2
+        proto_module = neobuilder6.generators.symbols.modules.ProtoModule(optionals_pb2)
+        proto_class = proto_module.message_map['OptionalsMessage']
+
+        cases = [
+            ('maybe_double', 'typing.Optional[float]', "'dictator': dictators.BaseDictator, 'is_optional': True"),
+            ('maybe_string', 'typing.Optional[str]', "'dictator': dictators.BaseDictator, 'is_optional': True"),
+            ('maybe_long', 'typing.Optional[int]', "'dictator': dictators.LongDictator, 'is_optional': True"),
+            ('maybe_bool', 'typing.Optional[bool]', "'dictator': dictators.BaseDictator, 'is_optional': True"),
+            ('maybe_enum', 'typing.Optional[sandbox__test__enums_dc.ExternalEnum]',
+             "'dictator': dictators.EnumDictator, 'is_enum': True, 'is_optional': True"),
+        ]
+        for name, type_hint, meta in cases:
+            with self.subTest(field=name):
+                proto_field = proto_class.field_map[name]
+                self.assertTrue(proto_field.is_optional())
+                self.assertEqual(type_hint, proto_field.get_type_hint())
+                self.assertEqual(meta, proto_field.get_metadata())
+                self.assertEqual(f"{name}: {type_hint} = dataclasses.field(default=None, metadata={{{meta}}})",
+                                 proto_field.render_py())
+
+        # Plain fields and real oneof members keep their scalar defaults
+        for name, default in (('plain_double', '0.0'), ('choice_string', "''"), ('choice_double', '0.0')):
+            with self.subTest(field=name):
+                proto_field = proto_class.field_map[name]
+                self.assertFalse(proto_field.is_optional())
+                self.assertIn(f'default={default},', proto_field.render_py())

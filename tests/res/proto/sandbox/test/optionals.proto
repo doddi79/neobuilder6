@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package sandbox.test;
+
+import "sandbox/test/enums.proto";
+
+
+message OptionalsMessage {
+    optional double maybe_double = 1;
+    optional string maybe_string = 2;
+    optional int64 maybe_long = 3;
+    optional bool maybe_bool = 4;
+    optional ExternalEnum maybe_enum = 5;
+    double plain_double = 6;
+
+    oneof choice {
+        string choice_string = 10;
+        double choice_double = 11;
+    }
+}
